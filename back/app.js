@@ -10,14 +10,15 @@ app.use(cors()) //hacemos que todas las rutas pasen por aqui y permita la entrad
 //lleguen los datos antes de seguir trabajando.
 app.get('/rickandmorty/:name', async (req,res) => {
     const name = req.params.name
-    const url = `http://localhost:3000/rickandmorty/characters`
+    const url = `https://rickandmortyapi.com/api/character/?name=${name}`
 
     try{
         const response = await axios.get(url)
-        const {name, status, species, origin, image} = response.data     // esto es lo que nos trae la api 
+        const character = response.data.results[0]
+        const {name, status, species, origin, image} = character;    // esto es lo que nos trae la api 
         
 
-        res.json ({name, status, species, origin, image})
+        res.json ({name, status, species, origin: origin.name, image})
     } catch (Error) { // usamos cacth para si sale un error aparezca el mensaje de abajo
         res.status (404).json ({error: "el personaje no existe"})
 

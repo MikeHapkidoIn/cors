@@ -2,11 +2,11 @@ function getRickAndMorty() { // creamos funcion para traer la informacion
     const name = document.getElementById("name") // extraemos del html la id de rickandmorty
     const rickInfo = document.getElementById ("rickInfo") // extraemos del html la informacion que aparecera en el DIV
 
-    const pokemonName = pokemonNameInput.value.toLowerCase
-    fetch(`http://localhost:3000/rickandmorty/characters${chara}`)
+    const characterName = name.value.toLowerCase
+    fetch(`http://localhost:3000/rickandmorty/${characterName}`)
         .then (response => response.json())
         .then (data => {
-            const {name, status, species, origin} = data
+            const {name, status, species, origin, image} = data;
             rickInfo.innerHTML = `
             <h2>${name}</h2>
             <img src "${image}" alt = ${name}"/>
